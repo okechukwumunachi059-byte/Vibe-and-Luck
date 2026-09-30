@@ -71,9 +71,49 @@
             justify-content: center; font-size: 24px; cursor: pointer; 
             box-shadow: 0 0 15px rgba(249, 217, 118, 0.2);
         }
+        /* Dreamy Floating Background Elements */
+        .floating-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; /* Prevents the background from blocking your button clicks */
+            z-index: -1; /* Keeps the magic strictly in the background */
+            overflow: hidden;
+        }
+        
+        .float-emoji {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.15; /* Keeps them subtle so they don't overpower the text */
+            filter: drop-shadow(0 0 10px rgba(249, 217, 118, 0.6)); /* Gold glow */
+            animation: float-drift 8s ease-in-out infinite alternate;
+        }
+
+        /* The physics engine for the floating effect */
+        @keyframes float-drift {
+            0% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.1; }
+            100% { transform: translateY(-30px) rotate(15deg) scale(1.2); opacity: 0.3; }
+        }
+
+        /* Unique timings so they don't all move at the exact same speed */
+        .delay-1 { animation-delay: 0s; animation-duration: 7s; }
+        .delay-2 { animation-delay: 2s; animation-duration: 9s; }
+        .delay-3 { animation-delay: 4s; animation-duration: 8s; }
+        .delay-4 { animation-delay: 1s; animation-duration: 10s; }
+        .delay-5 { animation-delay: 3s; animation-duration: 6s; }
     </style>
 </head>
 <body>
+    <!-- THE MAGICAL BACKGROUND -->
+    <div class="floating-bg">
+        <div class="float-emoji delay-1" style="top: 10%; left: 15%;">🔮</div>
+        <div class="float-emoji delay-2" style="top: 70%; left: 80%;">💎</div>
+        <div class="float-emoji delay-3" style="top: 40%; left: 10%;">✨</div>
+        <div class="float-emoji delay-4" style="top: 85%; left: 25%;">✦</div>
+        <div class="float-emoji delay-5" style="top: 20%; left: 75%;">🔮</div>
+        <div class="float-emoji delay-1" style="top: 50%; left: 85%;">✨</div>
+        <div class="float-emoji delay-3" style="top: 5%; left: 85%;">💎</div>
+        <div class="float-emoji delay-2" style="top: 60%; left: 15%;">✦</div>
+    </div>
 
     <!-- MAIN MENU SCREEN -->
     <div id="main-menu">
@@ -189,11 +229,158 @@
                 { name: "The Forge", focus: "Pressure is currently shaping you into an expert.", step: "Lean into the difficulty of today's task instead of looking for an easy way out." },
                 { name: "The Harvest", focus: "You are not celebrating how far you have actually come.", step: "Take a moment to acknowledge a past financial or career goal that is now your everyday reality." }
             ],
-            "love": [],
-            "social": [],
-            "peace": [],
-            "choices": [],
-            "closure": []
+            "love": [
+                { name: "The Mirror", focus: "You are looking for a partner to fix a void you need to heal yourself.", step: "Spend tonight entirely alone, doing something you usually rely on a partner for." },
+                { name: "The Anchor", focus: "You are romanticizing a past relationship that actually drained you.", step: "Delete the old screenshots, texts, or photos you keep looking at for comfort." },
+                { name: "The Wall", focus: "Your defensive sarcasm is pushing away genuine connection.", step: "Give someone a totally sincere compliment today without a punchline." },
+                { name: "The Ghost", focus: "You are entertaining someone who gives you the bare minimum.", step: "Leave their next low-effort message on read. Match their energy." },
+                { name: "The Blueprint", focus: "You are projecting your ideal fantasy onto a very flawed reality.", step: "Write down three red flags you are currently ignoring in a romantic prospect." },
+                { name: "The Shift", focus: "You are waiting for them to text first to validate your worth.", step: "Put your phone in another room for two hours and focus on your own life." },
+                { name: "The Spark", focus: "Comfort has turned into complacency in your connection.", step: "Plan a surprise for your partner that breaks your normal routine." },
+                { name: "The Standard", focus: "You are negotiating your boundaries just to keep someone around.", step: "Say 'no' to something small today to practice enforcing your limits." },
+                { name: "The Illusion", focus: "You are falling for their potential, not who they are right now.", step: "Evaluate their actions over the last 7 days, ignoring their promises." },
+                { name: "The Echo", focus: "You keep having the same argument because neither of you is listening.", step: "In your next disagreement, repeat back what they said before giving your counter-point." },
+                { name: "The Cleanse", focus: "Your physical space holds too much of your ex's energy.", step: "Throw away or donate one item that constantly reminds you of a past heartbreak." },
+                { name: "The Magnet", focus: "Desperation repels; self-assurance attracts.", step: "Do one thing today that makes you feel incredibly confident in your own skin." },
+                { name: "The Catalyst", focus: "You are avoiding a difficult conversation to keep a false peace.", step: "Send the text you have been drafting in your head for the last three days." },
+                { name: "The Pedestal", focus: "You have elevated someone above yourself, giving them all the power.", step: "List five things you bring to the table that make you a high-value partner." },
+                { name: "The Horizon", focus: "You are obsessing over the future instead of enjoying the current date.", step: "Focus entirely on the present moment today. Stop planning the wedding." },
+                { name: "The Shield", focus: "You push people away the moment they get too close.", step: "Share one small, vulnerable truth with someone you trust." },
+                { name: "The Audit", focus: "You are putting 90% of the effort into a 50/50 relationship.", step: "Pull back slightly today and see if they step up to fill the gap." },
+                { name: "The Oasis", focus: "You have forgotten how to date yourself.", step: "Take yourself out on a solo date—buy the coffee, read the book, enjoy your own company." },
+                { name: "The Prism", focus: "You are letting your friends' opinions dictate your love life.", step: "Make a romantic choice today based strictly on your own intuition." },
+                { name: "The Forge", focus: "True intimacy requires surviving a conflict together.", step: "Stop walking on eggshells. Address the elephant in the room calmly." },
+                { name: "The Mask", focus: "You are acting like the 'chill' partner when you actually care deeply.", step: "Admit that something bothered you instead of brushing it off." },
+                { name: "The Root", focus: "Your current jealousy stems from your own insecurity, not their actions.", step: "Trace your trigger back to its origin before you accuse your partner." },
+                { name: "The Harvest", focus: "You have a good thing in front of you, but you are looking for flaws.", step: "Express profound gratitude for one specific thing your partner did this week." },
+                { name: "The Reset", focus: "Your dating app burnout is making you bitter.", step: "Delete all dating apps from your phone for exactly 7 days." },
+                { name: "The Compass", focus: "Your 'type' is a trauma response.", step: "Give a chance to someone who is kind and stable, even if they don't immediately give you 'butterflies'." },
+                { name: "The Vault", focus: "You are oversharing early on to fast-track intimacy.", step: "Hold back your deepest stories until the person has actually earned your trust." },
+                { name: "The Flame", focus: "You are confusing anxiety and drama with passion.", step: "Recognize that a boring, peaceful day in a relationship is actually a massive win." },
+                 { name: "The Scales", focus: "You are keeping score of who did what, poisoning the dynamic.", step: "Do a favor for your partner today and explicitly decide not to hold it over them." },
+                { name: "The Leap", focus: "You know exactly what you need to do, you are just afraid to do it.", step: "Make the decision. Stay or go. No more lingering in the gray area." },
+                { name: "The Sanctuary", focus: "Your relationship should be a safe haven, not a battlefield.", step: "Actively de-escalate the next tense moment with a soft tone and a hug." }
+            ],
+            "social": [
+                { name: "The Prune", focus: "You are holding onto a friendship strictly out of nostalgia.", step: "Stop reaching out to the person who never initiates plans. See what happens." },
+                { name: "The Sponge", focus: "You are absorbing the negative energy of the people around you.", step: "Leave the room or change the subject the moment the conversation turns to gossip." },
+                { name: "The Stage", focus: "You are performing for your friends instead of being authentic.", step: "Admit a recent failure or embarrassing moment to your friend group." },
+                { name: "The Echo", focus: "You are agreeing with the group just to avoid conflict.", step: "Politely state your actual, differing opinion in your next social setting." },
+                { name: "The Vault", focus: "You are the therapist friend, and you are emotionally exhausted.", step: "Tell a friend you don't have the mental bandwidth to give advice today." },
+                { name: "The Network", focus: "Your social circle is too small and echo-chambered.", step: "Attend an event, class, or online group related to a hobby you usually do alone." },
+                { name: "The Ghost", focus: "You flake on plans because of social anxiety, damaging trust.", step: "Keep your next social commitment, no matter how much you want to cancel." },
+                { name: "The Bridge", focus: "You had a petty falling out and neither of you will apologize.", step: "Send a simple text: 'Hey, I miss you. Can we move past this?'" },
+                 { name: "The Mirror", focus: "You get jealous when your friends succeed.", step: "Publicly celebrate a friend's win today, forcing your brain to choose joy over envy." },
+                { name: "The Parasite", focus: "Someone in your circle only calls when they need something.", step: "Say 'I can't help with that right now' and observe how quickly they end the conversation." },
+                { name: "The Canvas", focus: "You expect your friends to read your mind when you are upset.", step: "Clearly articulate why you are hurt instead of giving the silent treatment." },
+                { name: "The Anchor", focus: "You are outgrowing people, and that is completely okay.", step: "Give yourself permission to politely distance yourself from a connection that feels heavy." },
+                { name: "The Spark", focus: "You haven't initiated a genuine hangout in weeks.", step: "Plan a low-pressure get-together and invite three people." },
+                { name: "The Shield", focus: "You use your phone as a crutch in social situations.", step: "Keep your phone in your pocket for the entirety of your next dinner or hangout." },
+                { name: "The Audit", focus: "Your group chat is causing you more stress than joy.", step: "Mute a chaotic group chat for 48 hours to reclaim your mental space." },
+                { name: "The Level", focus: "You are acting superior to your peers.", step: "Ask a friend to teach you something they are good at." },
+                { name: "The Boundary", focus: "A friend is overstepping and making you uncomfortable.", step: "Address a micro-aggression or crossed line the moment it happens, kindly but firmly." },
+                { name: "The Magnet", focus: "You want better friends, but you aren't being a great friend yourself.", step: "Check in on someone you know is going through a hard time, just to listen." },
+                { name: "The Upgrade", focus: "You need friends who talk about ideas, not just other people.", step: "Pivot a conversation today from complaining to discussing a goal or a concept." },
+                { name: "The Illusion", focus: "You are comparing your real social life to everyone else's highlight reel.", step: "Log off social media for the weekend and focus on face-to-face interactions." },
+                { name: "The Catalyst", focus: "You rely on alcohol or substances to feel comfortable socializing.", step: "Attend your next social gathering completely sober and observe your interactions." },
+                { name: "The Root", focus: "You feel left out, but you never invite anyone anywhere.", step: "Take the initiative and be the one to organize the next group activity." },
+                { name: "The Shift", focus: "You are trying to fit into a circle where you don't belong.", step: "Spend time with the weird, quirky friend you can actually be yourself around." },
+                { name: "The Harbor", focus: "You are taking a friend's bad mood personally.", step: "Recognize that their stress has nothing to do with you. Give them space." },
+                { name: "The Compass", focus: "You are losing your individuality to match the group.", step: "Wear something, say something, or do something today that is purely 'you'." },
+                { name: "The Flame", focus: "You have a habit of trauma-bonding with new acquaintances.", step: "Keep the conversation light and boundary-appropriate with the next new person you meet." },
+                { name: "The Scales", focus: "Your friendships feel entirely one-sided.", step: "Stop over-functioning. Let the other person make the next effort." },
+                { name: "The Lens", focus: "You are assuming everyone is judging you.", step: "Realize everyone is too obsessed with their own insecurities to notice yours." },
+                { name: "The Forge", focus: "A deep friendship requires uncomfortable honesty.", step: "Tell a close friend a hard truth they need to hear, wrapped in love." },
+                { name: "The Harvest", focus: "You are surrounded by good people and you don't appreciate them.", step: "Send a random text to a friend telling them exactly why you value them." }
+            ],
+            "peace": [
+                { name: "The Anchor", focus: "You are confusing anxiety with intuition.", step: "Stop trying to predict the future. Focus entirely on the physical sensations in your body for 5 minutes." },
+                { name: "The Pause", focus: "You are addicted to your own stress.", step: "Sit in complete silence for 10 minutes without looking at a screen or fixing a problem." },
+                { name: "The Shield", focus: "You are letting other people's chaos disrupt your peace.", step: "Put your phone on 'Do Not Disturb' for the next three hours." },
+                { name: "The Mirror", focus: "Your perfectionism is actually a defense mechanism.", step: "Do one task today imperfectly on purpose and leave it that way." },
+                { name: "The Cleanse", focus: "You are consuming content that actively spikes your cortisol.", step: "Unfollow or mute three accounts that make you feel anxious or inferior." },
+                { name: "The River", focus: "You are trying to control something that is fundamentally out of your hands.", step: "Say out loud: 'I release control of [insert issue here].' Let it run its course." },
+                { name: "The Root", focus: "You are living entirely in your head today.", step: "Go outside and physically touch something natural—a tree, dirt, or water." },
+                { name: "The Shift", focus: "You are treating rest like a reward you have to earn.", step: "Take a nap or lie down for 20 minutes right now, guilt-free." },
+                { name: "The Canvas", focus: "Your environment is too loud for your brain to calm down.", step: "Turn off background music, podcasts, or the TV for the rest of the afternoon." },
+                { name: "The Vault", focus: "You are carrying a secret or a worry that is crushing you.", step: "Write down the exact thing you are worried about on paper, then physically tear it up." },
+                { name: "The Magnet", focus: "You are manifesting your own worst-case scenarios.", step: "Catch your next negative thought and forcefully rewrite it into a neutral one." },
+                { name: "The Level", focus: "You are over-functioning for everyone around you.", step: "Let someone else handle a minor crisis today. Do not step in." },
+                { name: "The Echo", focus: "You are replaying a conversation from three years ago.", step: "Recognize the thought spiral, say 'stop' out loud, and pivot to a new task." },
+                { name: "The Compass", focus: "You are rushing through your day just to get to the end of it.", step: "Eat your next meal incredibly slowly, focusing only on the taste and texture." },
+                { name: "The Horizon", focus: "You are suffocating under the weight of the 'big picture'.", step: "Shrink your focus. What is the one thing you need to survive the next hour?" },
+                { name: "The Forge", focus: "You are running from a feeling that just needs to be felt.", step: "Set a timer for 5 minutes and let yourself cry, vent, or feel angry without judgment." },
+                { name: "The Cage", focus: "Your schedule is too tight to allow for any peace.", step: "Cancel one non-essential commitment this week." },
+                { name: "The Upgrade", focus: "You are holding your breath without realizing it.", step: "Take 10 deep belly breaths. Inhale for 4 seconds, hold for 4, exhale for 6." },
+                { name: "The Sanctuary", focus: "Your bedroom has become a workspace, ruining your rest.", step: "Remove all work-related items, laptops, and stress triggers from your sleeping space." },
+                { name: "The Boundary", focus: "You feel guilty for prioritizing your own mental health.", step: "Say 'no' to a request today and offer zero explanation or apology." },
+                { name: "The Mask", focus: "Pretending you are fine is exhausting your nervous system.", step: "Admit to one person today that you are actually struggling." },
+                { name: "The Spark", focus: "You have forgotten what it feels like to play.", step: "Do something creative or silly for 15 minutes that has no productive value." },
+                { name: "The Scales", focus: "You are giving away all your energy and saving none for yourself.", step: "Perform one act of intense self-care tonight, treating yourself like a VIP." },
+                { name: "The Leap", focus: "You are waiting for the 'right time' to relax.", step: "The work will never be completely done. Clock out mentally right now." },
+                { name: "The Lens", focus: "You are zooming in on the one thing going wrong today.", step: "List three things that are going perfectly right in your life at this exact moment." },
+                { name: "The Reset", focus: "Your physical body is begging for maintenance.", step: "Drink a large glass of water and stretch your neck and shoulders." },
+                { name: "The Harbor", focus: "You are afraid that if you slow down, everything will collapse.", step: "Test the theory. Drop the ball on a minor task today. Watch the world keep spinning." },
+                { name: "The Catalyst", focus: "Your morning routine is setting you up for panic.", step: "Do not look at your phone for the first 30 minutes after waking up tomorrow." },
+                { name: "The Illusion", focus: "You believe you have to earn your right to exist peacefully.", step: "Remind yourself that your worth is not tied to your daily productivity." },
+                { name: "The Harvest", focus: "You are completely ignoring the progress you have made.", step: "Look back at who you were five years ago and silently thank them for getting you here." }
+            ],
+            "choices": [
+                 { name: "The Fork", focus: "You already know the answer. You are just afraid of the fallout.", step: "Flip a coin. If you are disappointed by the result, pick the other option." },
+                { name: "The Weight", focus: "You are trying to make a choice where nobody gets hurt.", step: "Accept that someone will be disappointed, and make the choice that serves you." },
+                { name: "The Anchor", focus: "The 'sunk cost fallacy' is keeping you stuck in a bad situation.", step: "Ignore how much time you have invested. Ask: 'Would I choose this today?'" },
+                { name: "The Mirror", focus: "You are asking everyone for advice to avoid taking responsibility.", step: "Stop asking for opinions. Make this specific decision entirely on your own." },
+                { name: "The Leap", focus: "You are waiting for 100% certainty, which does not exist.", step: "Make a choice with the 70% of information you currently have." },
+                { name: "The Shift", focus: "You are choosing the path of least resistance, not the right path.", step: "Opt for the short-term pain that guarantees long-term relief." },
+                { name: "The Catalyst", focus: "Decision paralysis is draining your energy.", step: "Set a hard deadline for 5:00 PM today to make your final choice. No extensions." },
+                { name: "The Vault", focus: "You are making a decision based on fear, not ambition.", step: "Ask yourself: 'What would I do if I knew I could not fail?' Do that." },
+                { name: "The Compass", focus: "You are betraying your own values to appease someone else.", step: "Write down your core value. Ensure your decision aligns directly with it." },
+                { name: "The Network", focus: "You are choosing isolation when you need a team.", step: "Bring one trusted person into this decision to check your blind spots." },
+                { name: "The Spark", focus: "You are ignoring your gut instinct because it lacks 'logic'.", step: "Trust the physical feeling in your stomach over the pro/con list." },
+                { name: "The Architect", focus: "You are overwhelmed by the size of the leap.", step: "Don't make the big choice today. Just make the choice that gets you to step one." },
+                { name: "The Prune", focus: "You have too many options and it is paralyzing you.", step: "Immediately eliminate three options from your list right now." },
+                { name: "The Shield", focus: "You are playing it safe to protect your ego.", step: "Choose the option that forces you to grow, even if it might embarrass you." },
+                { name: "The Horizon", focus: "You are prioritizing today's comfort over tomorrow's freedom.", step: "Make the choice your future self 10 years from now will thank you for." },
+                { name: "The Illusion", focus: "You think there is a 'perfect' choice. There isn't.", step: "Accept that every path has a trade-off. Pick the trade-off you can live with." },
+                { name: "The Ghost", focus: "You are letting a past failure dictate a present opportunity.", step: "Remind yourself that you are not the same person who failed last time." },
+                { name: "The Echo", focus: "You are making a choice to prove a point to someone else.", step: "Remove the 'audience' from your mind. What do *you* actually want?" },
+                { name: "The Forge", focus: "You are avoiding the choice because it requires hard work.", step: "Commit to the difficult path. The struggle is exactly what you need right now." },
+                { name: "The Cleanse", focus: "Your mind is too cluttered to see the right path.", step: "Delay the decision for 24 hours. Sleep on it and decide first thing in the morning." },
+                { name: "The Magnet", focus: "You are choosing what you think you *should* want.", step: "Admit your deepest, truest desire, even if it makes no logical sense." },
+                { name: "The Scale", focus: "You are weighing the pros and cons instead of weighing your joy.", step: "Choose the option that actually makes you excited to wake up tomorrow." },
+                { name: "The Boundary", focus: "You are about to say 'yes' when you desperately want to say 'no'.", step: "Decline the offer. Protect your time." },
+                { name: "The Mask", focus: "You are making a choice to protect your current identity.", step: "Allow yourself to pivot, change your mind, and become someone new." },
+                { name: "The River", focus: "You are fighting the current instead of riding it.", step: "Stop forcing a door open. Choose the path that is naturally flowing." },
+                { name: "The Blueprint", focus: "You don't have a plan for what happens *after* the choice.", step: "Map out the first three steps you will take immediately after deciding." },
+                { name: "The Harvest", focus: "You are afraid of success.", step: "Acknowledge that getting what you want brings new responsibilities. Accept them." },
+                { name: "The Sanctuary", focus: "You are making a chaotic choice in a moment of panic.", step: "Do absolutely nothing today. Wait until your nervous system is calm to decide." },
+                { name: "The Level", focus: "You are settling for 'good enough'.", step: "Hold out for the standard you actually set for yourself. Don't compromise." },
+                { name: "The Pivot", focus: "You made the wrong choice, and you know it.", step: "Reverse the decision today. It is never too late to turn back." }
+            ],
+            "closure": [
+                 { name: "The Ghost", focus: "Closure is a myth you use to keep holding on.", step: "Stop waiting for an apology you will never get. Give yourself permission to move on." },
+                { name: "The Anchor", focus: "You are watering a dead plant.", step: "Block the number. Delete the contact. Sever the digital tie completely." },
+                { name: "The Shift", focus: "You are romanticizing a past that never actually existed.", step: "Write a brutally honest list of every terrible thing about that situation." },
+                { name: "The Echo", focus: "You are keeping their items as a shrine to your grief.", step: "Box up the gifts, the hoodies, or the photos and get them out of your house." },
+                { name: "The Mirror", focus: "You are blaming yourself for someone else's inability to love you.", step: "Look in the mirror and say: 'Their behavior was a reflection of them, not me.'" },
+                { name: "The Cleanse", focus: "You keep checking up on them to see if they are hurting too.", step: "Commit to a strict 30-day absolute no-contact, no-stalking rule starting right now." },
+                { name: "The Spark", focus: "You have let this ending steal your identity.", step: "Go do one hobby or activity today that you loved before they were in your life." },
+                { name: "The Shield", focus: "You are using anger to avoid feeling the underlying grief.", step: "Drop the tough exterior tonight and let yourself genuinely mourn the loss." },
+                { name: "The Vault", focus: "You are holding onto resentment because it feels like a connection.", step: "Forgive them silently in your own mind—not for them, but to set yourself free." },
+                { name: "The Magnet", focus: "You think you will never find anything better.", step: "Recognize that this ending is making room for an upgrade. Embrace the empty space." },
+                { name: "The Horizon", focus: "You are obsessing over the final chapter instead of starting the next book.", step: "Write down three exciting things you can do now that you are free from that weight." },
+                { name: "The Prune", focus: "You are staying friends when you really need a clean break.", step: "Tell them you need space to heal and enforce a period of complete separation." },
+                { name: "The Forge", focus: "This pain is the exact fire required to build your boundaries.", step: "Identify the boundary you compromised in the past, and vow never to drop it again." },
+                { name: "The River", focus: "You are fighting the reality of the situation.", step: "Accept that it is over. Stop plotting ways to fix it or win them back." },
+                { name: "The Canvas", focus: "You are letting their ghost live rent-free in your mind.", step: "Every time they pop into your head today, immediately redirect your focus to a physical task." },
+                { name: "The Level", focus: "You are looking for closure from the person who broke you.", step: "Realize that true closure comes from within. You hold the pen to the final period." },
+                { name: "The Catalyst", focus: "You are treating this ending like a failure instead of a lesson.", step: "Write down three incredible things you learned about yourself from this experience." },
+                { name: "The Mask", focus: "You are pretending you are over it when you are still bleeding.", step: "Stop performing for social media. It is okay to be messy and heartbroken." },
+                { name: "The Compass", focus: "You have lost your direction without them.", step: "Define one new personal goal today that has absolutely nothing to do with them." },
+                { name: "The Blueprint", focus: "You keep revisiting the memory of the goodbye.", step: "Change the narrative. Tell the story to yourself one last time, then mentally lock the file." },
+                { name: "The Harvest", focus: "The season is over. The harvest is done.", step: "Say out loud: 'Thank you for the experience. I release you.' Walk away." },
+                { name: "The Leap", focus: "You are afraid to step into the void of the unknown.", step: "Celebrate your newfound freedom tonight. The unknown is where the magic happens." },
+            ]
         };
 
         function startDailyCards() {
