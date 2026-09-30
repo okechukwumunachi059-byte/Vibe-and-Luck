@@ -5,130 +5,234 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vibe & Luck</title>
     
-    <!-- Telegram Web App API -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     
     <style>
-        /* Deep midnight space blue background */
+        /* The Dreamy Cosmic Background */
         body {
-            background-color: #060814; 
+            background: radial-gradient(circle at top center, #1b1e42 0%, #060814 80%);
             color: #ffffff;
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 20px;
             text-align: center;
+            min-height: 100vh;
         }
         
-        /* Header styling with gold accents */
-        .header {
-            margin-bottom: 30px;
-            margin-top: 10px;
-        }
-        h1 {
-            color: #F9D976; 
-            font-size: 28px;
-            margin: 5px 0;
-            letter-spacing: 1px;
-            font-weight: normal;
-        }
-        .subtitle {
-            color: #8C9BB4;
-            font-size: 11px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
+        /* Header Styling */
+        .header { margin-bottom: 30px; margin-top: 10px; }
+        h1 { color: #F9D976; font-size: 28px; margin: 5px 0; letter-spacing: 1px; font-weight: normal; text-shadow: 0 0 15px rgba(249, 217, 118, 0.3); }
+        .subtitle { color: #8C9BB4; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; }
         
         /* The 2x3 Grid */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            max-width: 400px;
-            margin: 0 auto;
-        }
+        .grid-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; max-width: 400px; margin: 0 auto; }
         
-        /* Rounded, glowing card design */
+        /* The Dreamy Card Design */
         .card {
-            background: linear-gradient(180deg, rgba(30,35,80,0.8) 0%, rgba(15,18,40,0.9) 100%);
-            border: 1px solid rgba(100, 150, 255, 0.2);
+            background: linear-gradient(180deg, rgba(30,35,80,0.6) 0%, rgba(15,18,40,0.8) 100%);
+            border: 1px solid rgba(100, 150, 255, 0.15);
             border-radius: 16px;
             padding: 20px 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 0 15px rgba(100, 150, 255, 0.05);
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
+        .card:active { transform: scale(0.95); box-shadow: 0 0 20px rgba(100, 150, 255, 0.3); }
         
-        .card:active {
-            transform: scale(0.95);
-        }
-        
-        /* Temporary glowing placeholder for your future images */
+        /* Glowing Emoji Placeholder */
         .card-image-placeholder {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(100,150,255,0.3) 0%, rgba(0,0,0,0) 70%);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
+            width: 70px; height: 70px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(100,150,255,0.4) 0%, rgba(0,0,0,0) 70%);
+            margin-bottom: 12px; display: flex; align-items: center; justify-content: center;
+            font-size: 32px; text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
         }
         
-        /* Crisp white text for the feature names */
-        .card-title {
-            font-size: 14px;
-            font-weight: 500;
-            color: #ffffff;
+        .card-title { font-size: 14px; font-weight: 500; color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+
+        /* Hidden Screens for Logic transitions */
+        #question-screen, #draw-screen, #reveal-screen { display: none; margin-top: 20px; }
+        
+        .action-btn { 
+            background: linear-gradient(180deg, #1E2350, #0F1228);
+            border: 1px solid rgba(249, 217, 118, 0.5); color: white; padding: 14px; 
+            margin: 10px auto; width: 90%; max-width: 320px; border-radius: 12px; 
+            cursor: pointer; display: block; font-size: 15px; font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        
+        /* Face-down cards styling */
+        .cards-container { display: flex; justify-content: center; gap: 15px; margin-top: 30px; }
+        .card-back { 
+            background: linear-gradient(135deg, #1E2350, #0F1228); border: 1px solid #F9D976; 
+            width: 80px; height: 120px; border-radius: 8px; display: flex; align-items: center; 
+            justify-content: center; font-size: 24px; cursor: pointer; 
+            box-shadow: 0 0 15px rgba(249, 217, 118, 0.2);
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Vibe & Luck 🔮</h1>
-        <div class="subtitle">MINI APP</div>
-    </div>
-
-    <div class="grid-container">
-        
-        <div class="card" onclick="alert('This will open the Daily Cards feature!')">
-            <div class="card-image-placeholder">🃏</div>
-            <div class="card-title">Daily Cards</div>
-        </div>
-        
-        <div class="card" onclick="alert('This will open the Love Match feature!')">
-            <div class="card-image-placeholder">❤️</div>
-            <div class="card-title">Love Match</div>
-        </div>
-        
-        <div class="card" onclick="alert('This will open Breakup Support!')">
-            <div class="card-image-placeholder">💔</div>
-            <div class="card-title">Breakup Support</div>
-        </div>
-        
-        <div class="card" onclick="alert('This will open the Mood Forecast!')">
-            <div class="card-image-placeholder">✨</div>
-            <div class="card-title">Mood Forecast</div>
-        </div>
-        
-        <div class="card" onclick="alert('This will open the Horoscope!')">
-            <div class="card-image-placeholder">♈</div>
-            <div class="card-title">Horoscope</div>
-        </div>
-        
-        <div class="card" onclick="alert('This will open Lucky Numbers!')">
-            <div class="card-image-placeholder">🎲</div>
-            <div class="card-title">Lucky Numbers</div>
+    <!-- MAIN MENU SCREEN -->
+    <div id="main-menu">
+        <div class="header">
+            <h1>✦ Vibe & Luck ✦</h1>
+            <div class="subtitle">MINI APP</div>
         </div>
 
+        <div class="grid-container">
+            <div class="card" onclick="startDailyCards()">
+                <div class="card-image-placeholder">🃏</div>
+                <div class="card-title">Daily Cards</div>
+                </div>
+            
+            <div class="card">
+                <div class="card-image-placeholder">❤️</div>
+                <div class="card-title">Love Match</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-image-placeholder">💔</div>
+                <div class="card-title">Breakup Support</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-image-placeholder">✨</div>
+                <div class="card-title">Mood Forecast</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-image-placeholder">♈</div>
+                <div class="card-title">Horoscope</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-image-placeholder">🎲</div>
+                <div class="card-title">Lucky Numbers</div>
+            </div>
+        </div>
     </div>
+
+    <!-- DAILY CARDS: QUESTION SCREEN -->
+    <div id="question-screen">
+        <h2 style="color: #F9D976; font-size: 22px; margin-bottom: 20px;">Where do you need guidance?</h2>
+        <button class="action-btn" onclick="goToDraw('career')">Finances & Career</button>
+        <button class="action-btn" onclick="goToDraw('love')">Love & Romance</button>
+        <button class="action-btn" onclick="goToDraw('social')">Friendships & Social Life</button>
+        <button class="action-btn" onclick="goToDraw('peace')">Inner Peace & Mindfulness</button>
+        <button class="action-btn" onclick="goToDraw('choices')">Big Choices & Crossroads</button>
+        <button class="action-btn" onclick="goToDraw('closure')">Letting Go & Moving On</button>
+    </div>
+
+    <!-- DAILY CARDS: DRAW SCREEN -->
+    <div id="draw-screen">
+        <h2 style="color: #F9D976;">Trust Your Intuition</h2>
+        <p style="color: #8C9BB4; font-size: 14px;">Pick one card to reveal your path.</p>
+        <div class="cards-container">
+           <div class="card-back" onclick="revealCard()">✦</div>
+           <div class="card-back" onclick="revealCard()">✦</div>
+           <div class="card-back" onclick="revealCard()">✦</div>
+        </div>
+    </div>
+
+    <!-- DAILY CARDS: REVEAL SCREEN -->
+    <div id="reveal-screen">
+        <h2 id="card-title" style="color: #ffffff; margin-bottom: 5px;">Card Name</h2>
+        <h3 style="color:#F9D976; font-size: 14px; margin-top: 20px;">Daily Focus</h3>
+        <p id="card-focus" style="font-size: 14px; color: #D1D8E8;">Focus text.</p>
+        <h3 style="color:#F9D976; font-size: 14px; margin-top: 20px;">Action Step</h3>
+        <p id="card-step" style="font-size: 14px; color: #D1D8E8;">Step text.</p>
+        
+        <button id="final-btn" class="action-btn" onclick="location.reload()" style="margin-top: 30px;">Close Daily Reading</button>
+    </div>
+
     <script>
         window.Telegram.WebApp.ready();
         window.Telegram.WebApp.expand();
+
+        let currentFeature = "daily";
+        let userCategory = "";
+        
+        // The Master Database Engine
+        const cardDatabase = {
+            "career": [
+                { name: "The Reality Check", focus: "You are procrastinating on the exact thing that will move you forward.", step: "Set a timer for 15 minutes and tackle the hardest task first." },
+                { name: "The Hustle", focus: "Motivation is a myth. Discipline is what pays the bills.", step: "Put in one extra hour today focused solely on execution, not planning." },
+                { name: "The Leak", focus: "Small, mindless expenses are draining your abundance.", step: "Open your bank app and cancel one subscription or planned purchase you don't actually need." },
+                { name: "The Upgrade", focus: "You are playing too small because you are afraid to fail.", step: "Send the email, make the pitch, or apply for the position you think you aren't ready for." },
+                { name: "The Anchor", focus: "A cluttered environment is causing a cluttered mind.", step: "Spend 10 minutes clearing your physical workspace before starting your next task." },
+                { name: "The Mirror", focus: "Stop waiting for someone else to recognize your value.", step: "Write down three professional wins you've had recently to kill your imposter syndrome." },
+                { name: "The Shift", focus: "You are focusing entirely on the problem, not the solution.", step: "Brainstorm three terrible, impossible solutions to your current block. One will lead to a real answer." },
+                { name: "The Pause", focus: "Grinding while running on empty produces low-quality work.", step: "Step completely away from your screens for one hour to let your brain reset." },
+                { name: "The Vault", focus: "You need a financial safety net to make bolder career moves.", step: "Move a small, specific amount of money into a savings account you cannot easily touch." },
+                { name: "The Network", focus: "Opportunities come from people, not just algorithms.", step: "Reach out to one person in your field today just to offer value or check in, asking for nothing." },
+                { name: "The Architect", focus: "You are treating a long-term goal like a weekend project.", step: "Break your biggest current goal down into 5 micro-steps, and only focus on step one." },
+                { name: "The Pivot", focus: "What worked for you last year is becoming a dead end.", step: "Identify one strategy or habit you need to abandon completely." },
+                { name: "The Polish", focus: "Your presentation is holding back your actual skills.", step: "Spend 20 minutes updating your resume, portfolio, or professional bio." },
+                { name: "The Silence", focus: "You are talking about your plans more than you are working on them.", step: "Keep your next big move entirely to yourself until it is finished." },
+                { name: "The Value", focus: "You are underpricing your time or your talent.", step: "Calculate what your time is actually worth per hour, and stop accepting less." },
+                { name: "The Apprentice", focus: "Your pride is stopping you from learning a necessary skill.", step: "Admit a gap in your knowledge and find a free tutorial to start fixing it today." },
+                { name: "The Engine", focus: "Inconsistency is killing your momentum.", step: "Commit to doing just 1% of your daily goal, even if you feel completely unmotivated." },
+                { name: "The Boundary", focus: "You are saying 'yes' to tasks that do not serve your bottom line.", step: "Politely decline or delegate one request today that drains your energy." },
+                { name: "The Horizon", focus: "Short-term panic is blinding you to long-term gains.", step: "Zoom out. Write down where you want your finances to be in exactly 5 years." },
+                { name: "The Catalyst", focus: "Someone else’s success is making you bitter instead of inspired.", step: "Study the person you are envious of and adopt one of their actual work habits." },
+                { name: "The Audit", focus: "You don't actually know where your time went today.", step: "Track every single minute of your work day tomorrow to find out where you are wasting time." },
+                { name: "The Leap", focus: "You have over-researched. It is time to execute.", step: "Launch the project, post the content, or hit publish. Fix the bugs later." },
+                { name: "The Yield", focus: "Not every day is a harvest; some days are just for planting.", step: "Do one tedious, boring task today that will set your future self up for success." },
+                { name: "The Magnet", focus: "Desperation repels wealth. Confidence attracts it.", step: "Walk into your next meeting, pitch, or task acting as if you already have the money you need." },
+                { name: "The Prune", focus: "You are juggling too many projects and starving the best one.", step: "Put your second and third priorities on pause to give 100% to your main goal." },
+                { name: "The Compass", focus: "You are working hard in the wrong direction.", step: "Re-evaluate if your current ladder is leaning against the right wall." },
+                { name: "The Spark", focus: "You have lost the joy in your work.", step: "Spend 30 minutes today working on a side project that has no immediate financial pressure." },
+                { name: "The Shield", focus: "Fear of judgment is dictating your career moves.", step: "Make one professional decision today that you know someone else will disagree with." },
+                { name: "The Forge", focus: "Pressure is currently shaping you into an expert.", step: "Lean into the difficulty of today's task instead of looking for an easy way out." },
+                { name: "The Harvest", focus: "You are not celebrating how far you have actually come.", step: "Take a moment to acknowledge a past financial or career goal that is now your everyday reality." }
+            ],
+            "love": [],
+            "social": [],
+            "peace": [],
+            "choices": [],
+            "closure": []
+        };
+
+        function startDailyCards() {
+            currentFeature = "daily";
+            document.getElementById('main-menu').style.display = 'none';
+            document.getElementById('question-screen').style.display = 'block';
+        }
+
+        function goToDraw(category) {
+            userCategory = category;
+            document.getElementById('question-screen').style.display = 'none';
+            document.getElementById('draw-screen').style.display = 'block';
+        }
+
+        function revealCard() {
+            let categoryList = cardDatabase[userCategory];
+            let pulledCard;
+
+            if(categoryList && categoryList.length > 0) {
+                let randomIndex = Math.floor(Math.random() * categoryList.length);
+                pulledCard = categoryList[randomIndex];
+            } else {
+                pulledCard = { name: "Card Incoming", focus: "We are writing the 30 cards for this category next.", step: "Check back soon." };
+            }
+            
+            document.getElementById('card-title').innerText = pulledCard.name;
+            document.getElementById('card-focus').innerText = pulledCard.focus;
+            document.getElementById('card-step').innerText = pulledCard.step;
+            
+            let finalButton = document.getElementById('final-btn');
+            if (currentFeature === "daily") {
+                finalButton.innerText = "Close Daily Reading";
+            } else {
+                finalButton.innerText = "Draw again for assurance";
+            }
+
+            document.getElementById('draw-screen').style.display = 'none';
+            document.getElementById('reveal-screen').style.display = 'block';
+        }
     </script>
 </body>
 </html>
