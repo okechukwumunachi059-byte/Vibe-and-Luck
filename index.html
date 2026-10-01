@@ -875,13 +875,6 @@ const tg = window.Telegram.WebApp;
             localStorage.setItem('cleanseLastCheckIn', today);
             updateCleanseUI();
         }
-
-        function completeCleanseTask() {
-            let day = parseInt(localStorage.getItem('cleanseDay')) || 1;
-            let streak = parseInt(localStorage.getItem('cleanseStreak')) || 0;
-            let lastCheckIn = localStorage.getItem('cleanseLastCheckIn');
-            let today = new Date().toDateString();
-            let yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
         function openMoodForecast() { document.getElementById('main-menu').style.display = 'none'; document.getElementById('mood-screen').style.display = 'block'; }
         function openHoroscope() { document.getElementById('main-menu').style.display = 'none'; document.getElementById('horoscope-screen').style.display = 'block'; }
         function openLuckyNumbers() { document.getElementById('main-menu').style.display = 'none'; document.getElementById('lucky-screen').style.display = 'block'; }
