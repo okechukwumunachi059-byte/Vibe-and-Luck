@@ -115,7 +115,52 @@
         .golden-jar-container { display: flex; justify-content: center; gap: 20px; margin-top: 30px; }
         .golden-jar { background: radial-gradient(circle at 30% 30%, #FFF2B2 0%, #D4AF37 50%, #8B6508 100%); border: 2px solid #F9D976; width: 70px; height: 90px; border-radius: 20px 20px 35px 35px; display: flex; align-items: center; justify-content: center; font-size: 28px; cursor: pointer; box-shadow: 0 0 20px rgba(249, 217, 118, 0.4), inset 0 -10px 15px rgba(0,0,0,0.6); transition: transform 0.2s, box-shadow 0.2s; }
         .golden-jar:active { transform: scale(0.9); box-shadow: 0 0 35px rgba(249, 217, 118, 0.8); }
+        /* --- BREAKUP SUPPORT STYLES --- */
+        .void-textarea {
+            width: 90%; max-width: 320px; height: 120px;
+            background: rgba(15, 18, 40, 0.8); border: 1px solid #8C9BB4;
+            color: #ffffff; border-radius: 12px; padding: 15px; font-size: 16px;
+            font-family: inherit; resize: none; margin-bottom: 20px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+            outline: none; transition: border-color 0.3s;
+        }
+        .void-textarea:focus { border-color: #F9D976; box-shadow: inset 0 0 15px rgba(249, 217, 118, 0.2); }
+        
+        .black-hole-container { display: flex; justify-content: center; align-items: center; height: 200px; position: relative; margin-top: 30px; }
+        .black-hole {
+            width: 150px; height: 150px; border-radius: 50%;
+            background: radial-gradient(circle, #000000 30%, #1a0b2e 70%, #4a1c40 100%);
+            box-shadow: 0 0 40px #4a1c40, inset 0 0 20px #000000;
+            animation: spin-hole 4s linear infinite;
+        }
+        .sucked-in-text { position: absolute; color: #8C9BB4; font-style: italic; animation: suck-in 3s forwards ease-in; }
+        @keyframes spin-hole { 100% { transform: rotate(360deg); } }
+        @keyframes suck-in { 0% { transform: scale(1) rotate(0deg); opacity: 1; } 100% { transform: scale(0) rotate(720deg); opacity: 0; } }
+
+        .moon-container { position: relative; width: 150px; height: 150px; margin: 30px auto; cursor: pointer; }
+        .moon { 
+            width: 100%; height: 100%; border-radius: 50%; overflow: hidden; position: relative; 
+            background: radial-gradient(circle at 30% 30%, #D1D8E8, #8C9BB4, #4a5c78); 
+            box-shadow: 0 0 30px rgba(209, 216, 232, 0.2); transition: all 1s ease; 
+        }
+        .moon.healed { box-shadow: 0 0 50px rgba(249, 217, 118, 0.8); }
+        .crack { position: absolute; background: #060814; transition: background 0.5s, box-shadow 0.5s; }
+        .crack.gold { background: #F9D976; box-shadow: 0 0 10px #F9D976; }
+        .crack-1 { top: 20%; left: 40%; width: 4px; height: 60px; transform: rotate(20deg); }
+        .crack-2 { top: 50%; left: 40%; width: 60px; height: 4px; transform: rotate(-15deg); }
+        .crack-3 { top: 40%; left: 65%; width: 4px; height: 50px; transform: rotate(45deg); }
+
+        .cleanse-dashboard { 
+            background: rgba(15,18,40,0.8); border: 1px solid #8C9BB4; border-radius: 16px; 
+            padding: 20px; margin: 20px auto; width: 90%; max-width: 320px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .streak-badge { 
+            background: linear-gradient(135deg, #F9D976, #D4AF37); color: #060814; 
+            font-weight: bold; padding: 5px 15px; border-radius: 20px; display: inline-block; margin-bottom: 15px; 
+        }
+        
     </style>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <!-- THE MAGICAL BACKGROUND -->
@@ -202,7 +247,28 @@
         <button id="final-btn" class="action-btn" onclick="location.reload()" style="margin-top: 30px;">Close Daily Reading</button>
     </div>
 
-    <!-- 2. LOVE MATCH SCREENS -->
+   <!-- 2. LOVE MATCH SCREENS -->
+    
+    <!-- LOVE MATCH: MAIN HUB -->
+    <div id="love-hub-screen" class="screen">
+        <h2 style="color: #F9D976;">Love Match</h2>
+        <p style="color: #8C9BB4; margin-bottom: 30px;">Choose your cosmic alignment tool.</p>
+
+        <div class="grid-container">
+            <div class="card" onclick="openZodiacSynastry()">
+                <div class="card-image-placeholder" style="font-size: 40px; background: transparent;">♈</div>
+                <div class="card-title">Zodiac Synastry</div>
+            </div>
+            
+            <div class="card" onclick="openFlames()">
+                <div class="card-image-placeholder" style="font-size: 40px; background: transparent;">🔥</div>
+                <div class="card-title">FLAMES Calculator</div>
+            </div>
+        </div>
+        <button class="action-btn" onclick="location.reload()" style="background: transparent; border: none; margin-top: 20px;">Back to Main Menu</button>
+    </div>
+
+    <!-- ZODIAC SYNASTRY: INPUT SCREEN -->
     <div id="love-picker-screen" class="screen">
         <h2 style="color: #F9D976;">Cosmic Synastry</h2>
         <p style="color: #8C9BB4; margin-bottom: 30px;">Select the signs to reveal your alignment.</p>
@@ -215,9 +281,10 @@
             <option value="Aries">♈ Aries</option><option value="Taurus">♉ Taurus</option><option value="Gemini">♊ Gemini</option><option value="Cancer">♋ Cancer</option><option value="Leo">♌ Leo</option><option value="Virgo">♍ Virgo</option><option value="Libra">♎ Libra</option><option value="Scorpio">♏ Scorpio</option><option value="Sagittarius">♐ Sagittarius</option><option value="Capricorn">♑ Capricorn</option><option value="Aquarius">♒ Aquarius</option><option value="Pisces">♓ Pisces</option>
         </select>
         <button class="action-btn" onclick="calculateLoveMatch()" style="margin-top: 20px;">Calculate Match</button>
-        <button class="action-btn" onclick="location.reload()" style="background: transparent; border: none;">Back</button>
+        <button class="action-btn" onclick="openLoveMatch()" style="background: transparent; border: none;">Back</button>
     </div>
 
+    <!-- ZODIAC SYNASTRY: DRAW SCREEN -->
     <div id="love-draw-screen" class="screen">
         <h2 style="color: #F9D976;">Let the Stars Align</h2>
         <p style="color: #8C9BB4; font-size: 14px;">Choose a golden jar of stardust to pull your Oracle Flirt and reveal compatibility.</p>
@@ -240,17 +307,137 @@
         <button class="action-btn" onclick="alert('Share API triggered!')">Share to Story 📲</button>
         <button class="action-btn" onclick="location.reload()" style="background: transparent; border: none;">Close Menu</button>
     </div>
+    <!-- FLAMES: INPUT SCREEN -->
+    <div id="flames-input-screen" class="screen">
+        <h2 style="color: #F9D976;">The Cosmic FLAMES</h2>
+        <p style="color: #8C9BB4; margin-bottom: 30px;">Enter both names to calculate your destiny.</p>
+        
+        <h3 style="color: white; font-size: 14px;">Your Name</h3>
+        <input type="text" id="flames-name1" class="sign-picker" placeholder="Enter name..." autocomplete="off">
 
-    <!-- PLACEHOLDER SCREENS FOR THE REST OF THE APP -->
-    <div id="breakup-screen" class="screen"><h2 style="color: #F9D976;">Breakup Support</h2><button class="action-btn" onclick="location.reload()">Back</button></div>
+        <h3 style="color: white; font-size: 14px;">Their Name</h3>
+        <input type="text" id="flames-name2" class="sign-picker" placeholder="Enter name..." autocomplete="off">
+
+        <button class="action-btn" onclick="calculateFlames()" style="margin-top: 10px;">Ignite the Flames</button>
+        <button class="action-btn" onclick="openLoveMatch()" style="background: transparent; border: none;">Back</button>
+    </div>
+
+    <!-- FLAMES: DRAW / SUSPENSE SCREEN -->
+    <div id="flames-draw-screen" class="screen">
+        <h2 style="color: #F9D976;">The Flames are Burning...</h2>
+        <p style="color: #8C9BB4; font-size: 14px;">Tap the cosmic fire to reveal what remains.</p>
+        <div class="golden-jar-container">
+           <div class="golden-jar" style="font-size: 40px; border-radius: 50%;" onclick="revealFlames()">🔥</div>
+        </div>
+    </div>
+
+    <!-- FLAMES: REVEAL SCREEN -->
+    <div id="flames-reveal-screen" class="screen">
+        <div class="shareable-card">
+            <h2 id="flames-title" style="color: #ffffff; font-size: 22px; margin-top: 0;">Name & Name</h2>
+            <div class="meter-ring" id="flames-letter" style="font-size: 40px;">M</div>
+            <h3 style="color:#F9D976; font-size: 14px;">The Verdict</h3>
+            <h2 id="flames-result" style="color: white; margin: 5px 0;">Married</h2>
+            <p id="flames-text" style="font-size: 14px; color: #D1D8E8; margin-bottom: 10px;">Text goes here.</p>
+            <p id="flames-count" style="font-size: 11px; color: #8C9BB4; text-transform: uppercase; letter-spacing: 1px;">Remaining Letters: 4</p>
+        </div>
+        <button class="action-btn" onclick="alert('Share API triggered!')">Share to Story 📲</button>
+        <button class="action-btn" onclick="openLoveMatch()" style="background: transparent; border: none;">Close to Hub</button>
+    </div>
+    <!-- ========================================== -->
+    <!-- 3. BREAKUP SUPPORT SECTION                 -->
+    <!-- ========================================== -->
+
+    <!-- BREAKUP SUPPORT: MAIN HUB -->
+    <div id="breakup-screen" class="screen">
+        <h2 style="color: #F9D976;">Breakup Support</h2>
+        <p style="color: #8C9BB4; margin-bottom: 30px;">Choose your healing ritual for today.</p>
+
+        <div class="grid-container">
+            <div class="card" onclick="openVoid()">
+                <div class="card-image-placeholder" style="font-size: 40px; background: transparent;">🌌</div>
+                <div class="card-title">The Void</div>
+            </div>
+            
+            <div class="card" onclick="openMoon()">
+                <div class="card-image-placeholder" style="font-size: 40px; background: transparent;">🌘</div>
+                <div class="card-title">Shattered Moon</div>
+            </div>
+            
+            <div class="card" onclick="openCleanse()" style="grid-column: span 2;">
+                <div class="card-image-placeholder" style="font-size: 40px; background: transparent;">❤️‍🩹</div>
+                <div class="card-title">30-Day Cleanse Challenge</div>
+            </div>
+        </div>
+        <button class="action-btn" onclick="location.reload()" style="background: transparent; border: none; margin-top: 20px;">Back to Main Menu</button>
+    </div>
+
+    <!-- THE VOID TEXT: INPUT SCREEN -->
+    <div id="void-input-screen" class="screen">
+        <h2 style="color: #F9D976;">The Void Text</h2>
+        <p style="color: #8C9BB4; margin-bottom: 20px;">Type everything you wish you could say to them.</p>
+        <textarea id="void-message" class="void-textarea" placeholder="I'm still so angry that..."></textarea>
+        <button class="action-btn" onclick="releaseToVoid()">Release to the Void</button>
+        <button class="action-btn" onclick="openBreakupSupport()" style="background: transparent; border: none;">Cancel</button>
+    </div>
+
+    <!-- THE VOID TEXT: ANIMATION SCREEN -->
+    <div id="void-anim-screen" class="screen">
+        <h2 style="color: #F9D976; opacity: 0.5;">Letting go...</h2>
+        <div class="black-hole-container">
+            <div class="black-hole"></div>
+            <div class="sucked-in-text">Your message is dissolving...</div>
+        </div>
+    </div>
+
+    <!-- CLOSURE: REVEAL SCREEN (Used by Void & Moon) -->
+    <div id="closure-reveal-screen" class="screen">
+        <div class="shareable-card">
+            <div class="card-image-placeholder" style="margin: 0 auto 15px auto; border-radius: 50%; width: 60px; height: 60px; font-size: 28px;">💔</div>
+            <h3 style="color:#F9D976; font-size: 14px;">Cosmic Closure</h3>
+            <p id="closure-reality-check" style="font-size: 15px; color: #ffffff; margin-bottom: 25px; line-height: 1.5; font-weight: bold;">Reality check goes here.</p>
+            <h3 style="color:#F9D976; font-size: 14px;">Next Step</h3>
+            <p id="closure-action" style="font-size: 14px; color: #D1D8E8; font-style: italic;">Action goes here.</p>
+        </div>
+        <button class="action-btn" onclick="openBreakupSupport()">Back to Support Hub</button>
+    </div>
+
+    <!-- SHATTERED MOON: INTERACTION SCREEN -->
+    <div id="moon-screen" class="screen">
+        <h2 style="color: #F9D976;">The Shattered Moon</h2>
+        <p id="moon-instruction" style="color: #8C9BB4; font-size: 14px;">Tap the fractures to mend them with gold.</p>
+        <div class="moon-container" onclick="healCrack()">
+            <div id="the-moon" class="moon">
+                <div id="crack-1" class="crack crack-1"></div>
+                <div id="crack-2" class="crack crack-2"></div>
+                <div id="crack-3" class="crack crack-3"></div>
+            </div>
+        </div>
+        <button class="action-btn" onclick="openBreakupSupport()" style="background: transparent; border: none;">Back</button>
+    </div>
+    <!-- 30-DAY CLEANSE: DASHBOARD -->
+    <div id="cleanse-screen" class="screen">
+        <h2 style="color: #F9D976;">Detox & Recover</h2>
+        <div class="cleanse-dashboard">
+            <div class="streak-badge">🔥 Streak: <span id="cleanse-streak">0</span> Days</div>
+            <h3 style="color: #ffffff; margin-top: 0; font-size: 24px;">Day <span id="cleanse-day">1</span></h3>
+            <p id="cleanse-task" style="color: #D1D8E8; font-size: 16px; margin: 20px 0; line-height: 1.5;">Task goes here.</p>
+            <button id="cleanse-btn" class="action-btn" onclick="completeCleanseTask()">I Did This Today</button>
+        </div>
+        <button class="action-btn" onclick="openBreakupSupport()" style="background: transparent; border: none;">Back to Hub</button>
+    </div>
+
     <div id="mood-screen" class="screen"><h2 style="color: #F9D976;">Mood Forecast</h2><button class="action-btn" onclick="location.reload()">Back</button></div>
     <div id="horoscope-screen" class="screen"><h2 style="color: #F9D976;">Horoscope</h2><button class="action-btn" onclick="location.reload()">Back</button></div>
     <div id="lucky-screen" class="screen"><h2 style="color: #F9D976;">Lucky Numbers</h2><button class="action-btn" onclick="location.reload()">Back</button></div>
     
     <script>
-        window.Telegram.WebApp.ready();
-        window.Telegram.WebApp.expand();
-
+        
+const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+        tg.setHeaderColor('#060814');
+        tg.setBackgroundColor('#060814');
         let currentFeature = "daily";
         let userCategory = "";
         
@@ -488,9 +675,19 @@
         };
 
         // --- FEATURE ROUTING FUNCTIONS ---
-        function openLoveMatch() {
+       function openLoveMatch() {
             document.getElementById('main-menu').style.display = 'none';
+            document.getElementById('love-hub-screen').style.display = 'block';
+        }
+
+        function openZodiacSynastry() {
+            document.getElementById('love-hub-screen').style.display = 'none';
             document.getElementById('love-picker-screen').style.display = 'block';
+        }
+
+        function openFlames() {
+            document.getElementById('love-hub-screen').style.display = 'none';
+            document.getElementById('flames-input-screen').style.display = 'block';
         }
 
         function calculateLoveMatch() {
@@ -534,8 +731,157 @@
             document.getElementById('love-draw-screen').style.display = 'none';
             document.getElementById('love-reveal-screen').style.display = 'block';
         }
+// ==========================================
+        // FLAMES LOGIC ENGINE
+        // ==========================================
+        function calculateFlames() {
+            let name1 = document.getElementById('flames-name1').value.trim();
+            let name2 = document.getElementById('flames-name2').value.trim();
+            if (name1 === "" || name2 === "") { alert("Please enter both names!"); return; }
+            document.getElementById('flames-input-screen').style.display = 'none';
+            document.getElementById('flames-draw-screen').style.display = 'block';
+        }
 
-        function openBreakupSupport() { document.getElementById('main-menu').style.display = 'none'; document.getElementById('breakup-screen').style.display = 'block'; }
+        function revealFlames() {
+            let name1 = document.getElementById('flames-name1').value.trim().toLowerCase().replace(/\s+/g, '');
+            let name2 = document.getElementById('flames-name2').value.trim().toLowerCase().replace(/\s+/g, '');
+            let arr1 = name1.split(''); let arr2 = name2.split('');
+            
+            for (let i = 0; i < arr1.length; i++) {
+                let matchIndex = arr2.indexOf(arr1[i]);
+                if (matchIndex !== -1) { arr1[i] = ''; arr2[matchIndex] = ''; }
+            }
+            
+            let remainingCount = arr1.join('').length + arr2.join('').length;
+            if (remainingCount === 0) remainingCount = 6; 
+            
+            const flamesOutcomes = [
+                { letter: "F", title: "Friends", desc: "A solid foundation. You vibe perfectly as friends." },
+                { letter: "L", title: "Lovers", desc: "Deep romance. The chemistry is undeniable." },
+                { letter: "A", title: "Admirers", desc: "Someone is crushing hard. Hidden admiration." },
+                { letter: "M", title: "Married", desc: "Endgame energy. Serious long-term potential." },
+                { letter: "E", title: "Enemies", desc: "High friction! Intense energy, not the peaceful kind." },
+                { letter: "S", title: "Secret lovers", desc: "Hidden sparks. A magnetic pull the world doesn't see." }
+            ];
+            
+            let resultIndex = (remainingCount % 6) - 1;
+            if (resultIndex === -1) resultIndex = 5; 
+            let finalResult = flamesOutcomes[resultIndex];
+            
+            document.getElementById('flames-title').innerText = document.getElementById('flames-name1').value + " & " + document.getElementById('flames-name2').value;
+            document.getElementById('flames-letter').innerText = finalResult.letter;
+            document.getElementById('flames-result').innerText = finalResult.title;
+            document.getElementById('flames-text').innerText = finalResult.desc;
+            document.getElementById('flames-count').innerText = "Remaining Letters: " + remainingCount;
+            
+            document.getElementById('flames-draw-screen').style.display = 'none';
+            document.getElementById('flames-reveal-screen').style.display = 'block';
+        }
+
+        // ==========================================
+        // BREAKUP SUPPORT LOGIC
+        // ==========================================
+        const closureCards = [
+            { text: "If they wanted to, they would.", action: "Mute their stories for the next 24 hours." },
+            { text: "You are mourning the potential, not the reality.", action: "Write down three things that annoyed you." },
+            { text: "Closure is a myth. You just need distance.", action: "Delete that old screenshot." }
+        ];
+
+        function openBreakupSupport() { 
+            document.getElementById('main-menu').style.display = 'none'; 
+            document.getElementById('breakup-screen').style.display = 'block'; 
+        }
+
+        function openVoid() {
+            document.getElementById('breakup-screen').style.display = 'none';
+            document.getElementById('void-message').value = "";
+            document.getElementById('void-input-screen').style.display = 'block';
+        }
+        function releaseToVoid() {
+            if (document.getElementById('void-message').value.trim() === "") { alert("Type your message first."); return; }
+            document.getElementById('void-input-screen').style.display = 'none';
+            document.getElementById('void-anim-screen').style.display = 'block';
+            setTimeout(() => { showClosureCard('void-anim-screen'); }, 3000); 
+        }
+
+        let crackCount = 0;
+        function openMoon() {
+            crackCount = 0;
+            document.getElementById('breakup-screen').style.display = 'none';
+            ['crack-1', 'crack-2', 'crack-3'].forEach(id => document.getElementById(id).classList.remove('gold'));
+            document.getElementById('the-moon').classList.remove('healed');
+            document.getElementById('moon-instruction').innerText = "Tap the fractures to mend them with gold.";
+            document.getElementById('moon-screen').style.display = 'block';
+        }
+
+        function healCrack() {
+            if (crackCount < 3) {
+                crackCount++;
+                document.getElementById('crack-' + crackCount).classList.add('gold');
+                if (crackCount === 3) {
+                    document.getElementById('the-moon').classList.add('healed');
+                    document.getElementById('moon-instruction').innerText = "You are becoming whole again...";
+                    setTimeout(() => { showClosureCard('moon-screen'); }, 2500);
+                }
+            }
+        }
+
+        function showClosureCard(previousScreenId) {
+            let randomCard = closureCards[Math.floor(Math.random() * closureCards.length)];
+            document.getElementById('closure-reality-check').innerText = randomCard.text;
+            document.getElementById('closure-action').innerText = randomCard.action;
+            document.getElementById(previousScreenId).style.display = 'none';
+            document.getElementById('closure-reveal-screen').style.display = 'block';
+        }
+
+        const cleanseTasks = [
+            "Mute their profile on all platforms.",
+            "Delete or hide one photo of you two.",
+            "Write down three things you sacrificed."
+        ];
+
+        function openCleanse() {
+            document.getElementById('breakup-screen').style.display = 'none';
+            updateCleanseUI();
+            document.getElementById('cleanse-screen').style.display = 'block';
+        }
+
+        function updateCleanseUI() {
+            let day = parseInt(localStorage.getItem('cleanseDay')) || 1;
+            let streak = parseInt(localStorage.getItem('cleanseStreak')) || 0;
+            let lastCheckIn = localStorage.getItem('cleanseLastCheckIn');
+            let today = new Date().toDateString();
+
+            if (day > 30) day = 30;
+            document.getElementById('cleanse-day').innerText = day;
+            document.getElementById('cleanse-streak').innerText = streak;
+            document.getElementById('cleanse-task').innerText = cleanseTasks[day - 1] || "Focus on yourself today.";
+
+            let btn = document.getElementById('cleanse-btn');
+            if (lastCheckIn === today) {
+                btn.innerText = "Completed for Today ✨";
+                btn.style.opacity = "0.5";
+                btn.onclick = null;
+            } else {
+                btn.innerText = "I Did This Today";
+                btn.style.opacity = "1";
+                btn.onclick = completeCleanseTask;
+            }
+        }
+        if (lastCheckIn !== yesterday.toDateString() && lastCheckIn !== null) streak = 0; 
+            
+            localStorage.setItem('cleanseDay', day + 1);
+            localStorage.setItem('cleanseStreak', streak + 1);
+            localStorage.setItem('cleanseLastCheckIn', today);
+            updateCleanseUI();
+        }
+
+        function completeCleanseTask() {
+            let day = parseInt(localStorage.getItem('cleanseDay')) || 1;
+            let streak = parseInt(localStorage.getItem('cleanseStreak')) || 0;
+            let lastCheckIn = localStorage.getItem('cleanseLastCheckIn');
+            let today = new Date().toDateString();
+            let yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
         function openMoodForecast() { document.getElementById('main-menu').style.display = 'none'; document.getElementById('mood-screen').style.display = 'block'; }
         function openHoroscope() { document.getElementById('main-menu').style.display = 'none'; document.getElementById('horoscope-screen').style.display = 'block'; }
         function openLuckyNumbers() { document.getElementById('main-menu').style.display = 'none'; document.getElementById('lucky-screen').style.display = 'block'; }
