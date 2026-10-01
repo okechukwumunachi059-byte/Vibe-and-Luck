@@ -433,11 +433,15 @@
     
     <script>
         
-const tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand();
-        tg.setHeaderColor('#060814');
-        tg.setBackgroundColor('#060814');
+const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : {};
+        if (typeof tg.ready === 'function') {
+            tg.ready();
+            tg.expand();
+            try {
+                tg.setHeaderColor('#060814');
+                tg.setBackgroundColor('#060814');
+            } catch (e) {}
+        }
         let currentFeature = "daily";
         let userCategory = "";
         
